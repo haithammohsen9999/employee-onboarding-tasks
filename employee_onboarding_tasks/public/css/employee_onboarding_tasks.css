@@ -1,0 +1,72 @@
+.employee-onboarding-page .layout-main-section {
+	direction: rtl;
+}
+
+.employee-onboarding-dashboard {
+	direction: rtl;
+	padding: 12px;
+	background: linear-gradient(180deg, #f7fbff 0%, #eef5f1 100%);
+	border-radius: 16px;
+}
+
+.employee-onboarding-dashboard .onboarding-card,
+.employee-onboarding-dashboard .onboarding-table-card {
+	background: #ffffff;
+	border: 1px solid #d6e4db;
+	border-radius: 16px;
+	box-shadow: 0 8px 24px rgba(34, 76, 62, 0.08);
+	padding: 18px;
+	margin-bottom: 16px;
+}
+
+.employee-onboarding-dashboard .onboarding-card .label {
+	color: #5c6b64;
+	font-size: 14px;
+	margin-bottom: 6px;
+}
+
+.employee-onboarding-dashboard .onboarding-card .value {
+	font-size: 28px;
+	font-weight: 700;
+	color: #184e3b;
+}
+
+.employee-onboarding-dashboard .section-title {
+	font-size: 18px;
+	font-weight: 700;
+	color: #16352c;
+	margin-bottom: 14px;
+}
+
+.employee-onboarding-dashboard .indicator-pill {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.employee-onboarding-dashboard .indicator-pill.orange {
+	background: #fff0d9;
+	color: #b86a00;
+}
+
+.employee-onboarding-dashboard .indicator-pill.blue {
+	background: #e0efff;
+	color: #1d5fae;
+}
+
+.employee-onboarding-dashboard .indicator-pill.green {
+	background: #def7e5;
+	color: #1a7f45;
+}
+
+.employee-onboarding-dashboard .indicator-pill.red {
+	background: #ffe1df;
+	color: #c0392b;
+}
+
+.employee-onboarding-dashboard .action-btn {
+	margin-left: 6px;
+	margin-bottom: 4px;
+}

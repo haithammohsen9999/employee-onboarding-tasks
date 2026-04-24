@@ -1,0 +1,57 @@
+{
+ "doctype": "Workspace",
+ "name": "طلبات تجهيز الموظفين",
+ "module": "طلبات تجهيز الموظفين",
+ "label": "طلبات تجهيز الموظفين",
+ "public": 1,
+ "title": "طلبات تجهيز الموظفين",
+ "icon": "octicon octicon-checklist",
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "content": "[{\"id\":\"hdr1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">لوحة متابعة تجهيز الموظفين</span>\",\"col\":12}},{\"id\":\"sc1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"لوحة تجهيز الموظفين\",\"col\":4}},{\"id\":\"sc2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"طلبات التجهيز\",\"col\":4}},{\"id\":\"sc3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"مهام التجهيز\",\"col\":4}},{\"id\":\"hdr2\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">الإعدادات</span>\",\"col\":12}},{\"id\":\"sc4\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"إعدادات تجهيز الموظفين\",\"col\":4}}]",
+ "shortcuts": [
+  {
+   "label": "لوحة تجهيز الموظفين",
+   "type": "Page",
+   "link_to": "employee-onboarding-dashboard",
+   "stats_filter": "[]"
+  },
+  {
+   "label": "طلبات التجهيز",
+   "type": "DocType",
+   "link_to": "Employee Onboarding Request",
+   "stats_filter": "[]"
+  },
+  {
+   "label": "مهام التجهيز",
+   "type": "DocType",
+   "link_to": "Employee Onboarding Task",
+   "stats_filter": "[]"
+  },
+  {
+   "label": "إعدادات تجهيز الموظفين",
+   "type": "URL",
+   "url": "/app/employee-onboarding-settings"
+  }
+ ],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "مدير تجهيز الموظفين"
+  },
+  {
+   "role": "مسؤول البصمة"
+  },
+  {
+   "role": "مسؤول المالية"
+  },
+  {
+   "role": "مسؤول العهدة"
+  },
+  {
+   "role": "مسؤول تقنية المعلومات"
+  }
+ ]
+}

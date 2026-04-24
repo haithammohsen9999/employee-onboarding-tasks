@@ -1,0 +1,190 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:EOT-.#####",
+ "creation": "2026-04-24 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "onboarding_request",
+  "employee",
+  "employee_name",
+  "task_type",
+  "assigned_to",
+  "assigned_role",
+  "status",
+  "due_date",
+  "task_message",
+  "completed_by",
+  "completed_on",
+  "remarks",
+  "attachment",
+  "company",
+  "branch",
+  "department"
+ ],
+ "fields": [
+  {
+   "fieldname": "onboarding_request",
+   "fieldtype": "Link",
+   "label": "طلب التجهيز",
+   "options": "Employee Onboarding Request",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "الموظف",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "اسم الموظف",
+   "read_only": 1
+  },
+  {
+   "fieldname": "task_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "نوع المهمة",
+   "options": "البصمة\nالمالية\nالعهدة\nتقنية المعلومات\nالكشف الطبي\nأخرى",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_to",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "مسند إلى",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_role",
+   "fieldtype": "Link",
+   "label": "الدور المسؤول",
+   "options": "Role"
+  },
+  {
+   "default": "معلق",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "الحالة",
+   "options": "معلق\nقيد التنفيذ\nمكتمل\nمرفوض"
+  },
+  {
+   "fieldname": "due_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "تاريخ الاستحقاق"
+  },
+  {
+   "fieldname": "task_message",
+   "fieldtype": "Small Text",
+   "label": "الرسالة"
+  },
+  {
+   "fieldname": "completed_by",
+   "fieldtype": "Link",
+   "label": "تم التنفيذ بواسطة",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_on",
+   "fieldtype": "Datetime",
+   "label": "وقت التنفيذ",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "ملاحظات"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "مرفق"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "الشركة",
+   "options": "Company"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "الفرع",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "القسم",
+   "options": "Department"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "module": "طلبات تجهيز الموظفين",
+ "name": "Employee Onboarding Task",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "مدير تجهيز الموظفين",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "مسؤول البصمة",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "مسؤول المالية",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "مسؤول العهدة",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "مسؤول تقنية المعلومات",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

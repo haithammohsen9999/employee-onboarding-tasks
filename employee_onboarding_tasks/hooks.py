@@ -10,6 +10,7 @@ required_apps = ["hrms"]
 app_include_css = "/assets/employee_onboarding_tasks/css/employee_onboarding_tasks.css"
 
 doctype_js = {
+	"Employee Onboarding Settings": "public/js/employee_onboarding_settings.js",
 	"Employee Onboarding Task": "public/js/employee_onboarding_task.js",
 }
 

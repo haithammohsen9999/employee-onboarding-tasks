@@ -9,6 +9,8 @@
   "task_type",
   "assigned_to",
   "assigned_role",
+  "allowed_department",
+  "select_departments",
   "due_after_days",
   "task_message"
  ],
@@ -40,6 +42,19 @@
    "in_list_view": 1,
    "label": "الدور المسؤول",
    "options": "Role"
+  },
+  {
+   "description": "يمكنك اختيار أكثر من قسم من نفس الحقل",
+   "fieldname": "allowed_department",
+   "in_list_view": 1,
+   "fieldtype": "Small Text",
+   "label": "الأقسام المستهدفة"
+  },
+  {
+   "fieldname": "select_departments",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "اختيار الأقسام"
   },
   {
    "default": "1",

@@ -18,6 +18,7 @@ class TestEmployeeOnboarding(FrappeTestCase):
 		before_tests()
 		cls.company = erpnext.get_default_company() or frappe.get_all("Company", pluck="name")[0]
 		cls.department = cls.ensure_department("Onboarding Department", cls.company)
+		cls.designation = create_designation().name
 		cls.manager_user = cls.ensure_user("onboarding_manager@example.com", ["مدير تجهيز الموظفين"])
 		cls.fingerprint_user = cls.ensure_user("fingerprint_owner@example.com", ["مسؤول البصمة"])
 		cls.finance_user = cls.ensure_user("finance_owner@example.com", ["مسؤول المالية"])
@@ -95,14 +96,13 @@ class TestEmployeeOnboarding(FrappeTestCase):
 		frappe.db.rollback()
 
 	def make_test_employee(self, email):
-		designation = create_designation().name
 		self.department = self.ensure_department("Onboarding Department", self.company)
 		return make_employee(
 			email,
 			company=self.company,
 			department=self.department,
 			date_of_joining=today(),
-			designation=designation,
+			designation=self.designation,
 		)
 
 	def test_employee_creation_generates_request_and_tasks(self):
@@ -155,3 +155,88 @@ class TestEmployeeOnboarding(FrappeTestCase):
 		create_onboarding_request(employee, None)
 
 		self.assertEqual(frappe.db.count("Employee Onboarding Request", {"employee": employee_name}), 1)
+
+	def test_request_is_created_only_for_selected_departments(self):
+		allowed_department = self.ensure_department("Allowed Onboarding Department", self.company)
+		second_allowed_department = self.ensure_department("Second Allowed Onboarding Department", self.company)
+		blocked_department = self.ensure_department("Blocked Onboarding Department", self.company)
+
+		settings = frappe.get_single("Employee Onboarding Settings")
+		settings.task_templates = []
+		settings.append(
+			"task_templates",
+			{
+				"enabled": 1,
+				"task_type": "البصمة",
+				"assigned_to": self.fingerprint_user,
+				"assigned_role": "مسؤول البصمة",
+				"due_after_days": 1,
+				"allowed_department": f"{allowed_department}, {second_allowed_department}",
+			},
+		)
+		settings.save(ignore_permissions=True)
+
+		allowed_employee = make_employee(
+			"employee_onboarding_allowed@example.com",
+			company=self.company,
+			department=allowed_department,
+			date_of_joining=today(),
+			designation=self.designation,
+		)
+		second_allowed_employee = make_employee(
+			"employee_onboarding_second_allowed@example.com",
+			company=self.company,
+			department=second_allowed_department,
+			date_of_joining=today(),
+			designation=self.designation,
+		)
+		blocked_employee = make_employee(
+			"employee_onboarding_blocked@example.com",
+			company=self.company,
+			department=blocked_department,
+			date_of_joining=today(),
+			designation=self.designation,
+		)
+
+		self.assertTrue(frappe.db.exists("Employee Onboarding Request", {"employee": allowed_employee}))
+		self.assertTrue(frappe.db.exists("Employee Onboarding Request", {"employee": second_allowed_employee}))
+		self.assertFalse(frappe.db.exists("Employee Onboarding Request", {"employee": blocked_employee}))
+
+	def test_department_selection_is_normalized_when_saved(self):
+		first_department = self.ensure_department("Normalized Department 1", self.company)
+		second_department = self.ensure_department("Normalized Department 2", self.company)
+
+		settings = frappe.get_single("Employee Onboarding Settings")
+		settings.task_templates = []
+		settings.append(
+			"task_templates",
+			{
+				"enabled": 1,
+				"task_type": "البصمة",
+				"assigned_to": self.fingerprint_user,
+				"assigned_role": "مسؤول البصمة",
+				"due_after_days": 1,
+				"allowed_department": f'["{first_department}", "{second_department}", "{first_department}"]',
+			},
+		)
+		settings.save(ignore_permissions=True)
+		settings.reload()
+
+		self.assertEqual(
+			settings.task_templates[0].allowed_department,
+			f"{first_department}, {second_department}",
+		)
+
+	def test_request_matches_department_name_when_template_uses_alternate_department_docname(self):
+		alternate_department = self.ensure_department(
+			"Alternate Match Department",
+			self.company,
+		)
+		from types import SimpleNamespace
+
+		from employee_onboarding_tasks.employee_onboarding_tasks.events.employee import _template_applies_to_employee
+
+		template = SimpleNamespace(enabled=1, allowed_department=alternate_department)
+		employee = SimpleNamespace(department="Alternate Match Department")
+
+		self.assertTrue(_template_applies_to_employee(template, employee))
